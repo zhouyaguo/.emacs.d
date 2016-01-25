@@ -26,6 +26,7 @@
 		     projectile-speedbar 
 		     company   
 		     yaml-mode
+		     puppet-mode
 		     ))
 
 (dolist (package package-list)
