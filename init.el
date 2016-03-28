@@ -36,7 +36,7 @@
 ; ------------------------------ common config
 
 (menu-bar-mode 0)
-(load-theme 'zenburn t)
+;(load-theme 'zenburn t)
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 
 ; ------------------------------ plugins
@@ -63,10 +63,12 @@
 
 
 (require 'projectile-speedbar)
+(global-set-key (kbd "<f8>") 'projectile-speedbar-toggle)
 
 ; helm
 (require 'helm-config)
 (helm-mode 1)
+(global-set-key (kbd "M-x") 'helm-M-x)
 
 
 ; pip install jedi flake8 importmagic autopep8 yapf
