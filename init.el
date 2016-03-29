@@ -17,7 +17,8 @@
 (setq package-list '(helm 
 		     helm-projectile 
 		     yasnippet 
-		     elpy  
+		     elpy
+		     py-yapf
 		     zenburn-theme 
 		     projectile 
 		     jekyll-modes 
@@ -93,3 +94,11 @@
 ; yaml-mode
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
+; py-yapf, used to format python code
+(require 'py-yapf)
+(add-hook 'python-mode-hook 'py-yapf-enable-on-save)
+
+; for mac
+(setenv "LC_ALL" "en_US.UTF-8")
+(setenv "LANG" "en_US.UTF-8")
