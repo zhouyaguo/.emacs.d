@@ -64,6 +64,9 @@
 
 ; sr-speedbar
 (require 'sr-speedbar)
+(setq sr-speedbar-right-side nil)
+(setq speedbar-show-unknown-files t)
+(sr-speedbar-refresh-turn-on)
 ;(sr-speedbar-open)
 
 ; projectile
