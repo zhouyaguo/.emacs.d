@@ -1,9 +1,9 @@
 ; ------------------------------ set package archives
 (require 'package)
 
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa-stable" . "https://stable.melpa.org/packages/")
+(setq package-archives '(("gnu" . "http://elpa.emacs-china.org/gnu/")
+                         ("marmalade" . "http://elpa.emacs-china.org/marmalade/")
+                         ("melpa" . "http://elpa.emacs-china.org/melpa/")
                          ("elpy" . "https://jorgenschaefer.github.io/packages/")
                          ))
 
@@ -14,21 +14,24 @@
   (package-refresh-contents))
 
 ; ------------------------------ install all packages needed
-(setq package-list '(helm 
-		     helm-projectile 
-		     yasnippet 
-		     elpy
-		     py-yapf
-		     zenburn-theme 
-		     projectile 
-		     jekyll-modes 
-		     markdown-mode 
-		     sr-speedbar 
-		     projectile-speedbar 
-		     company   
-		     yaml-mode
-		     puppet-mode
-		     ))
+(setq package-list '(
+             projectile
+             helm
+             helm-projectile
+             ag
+             helm-ag
+             yasnippet
+             yasnippet-snippets
+             elpy
+             zenburn-theme
+             color-theme-sanityinc-tomorrow
+             markdown-mode
+             company
+             yaml-mode
+             puppet-mode
+             flymake
+             flyspell
+             ))
 
 (dolist (package package-list)
   (unless (package-installed-p package)
@@ -37,73 +40,65 @@
 ; ------------------------------ common config
 
 (menu-bar-mode 0)
+
+; theme
 ;(load-theme 'zenburn t)
-(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+(require 'color-theme-sanityinc-tomorrow)
+(color-theme-sanityinc-tomorrow--define-theme night)
+
+(setq backup-directory-alist '(("." . "~/.emacs.backups")))
+
+; show whitespace
+(require 'whitespace)
+;(global-whitespace-mode 1)
 
 (global-set-key (kbd "<C-up>") 'shrink-window)
 (global-set-key (kbd "<C-down>") 'enlarge-window)
 (global-set-key (kbd "<C-left>") 'shrink-window-horizontally)
 (global-set-key (kbd "<C-right>") 'enlarge-window-horizontally)
 
+; never use tab
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq indent-line-function 'insert-tab)
 
+(setq line-number-mode t)
+(setq column-number-mode t)
+
 ; ------------------------------ plugins
 
 ; company
-;(add-hook 'after-init-hook 'global-company-mode)
+(add-hook 'after-init-hook 'global-company-mode)
 
 ; yasnippet
 (require 'yasnippet)
 (yas-global-mode 1)
 
-; ido
-(require 'ido)
-(ido-mode t)
-
-; sr-speedbar
-(require 'sr-speedbar)
-(setq sr-speedbar-right-side nil)
-(setq speedbar-show-unknown-files t)
-(sr-speedbar-refresh-turn-on)
-;(sr-speedbar-open)
+; helm
+(load "~/.emacs.d/init-helm")
 
 ; projectile
-(projectile-global-mode)
-(setq projectile-completion-system 'helm)
+(projectile-mode)
+
+; helm-projectile
+(require 'helm-projectile)
 (helm-projectile-on)
-
-
-(require 'projectile-speedbar)
-(global-set-key (kbd "<f8>") 'projectile-speedbar-toggle)
-
-; helm
-(require 'helm-config)
-(helm-mode 1)
-(global-set-key (kbd "M-x") 'helm-M-x)
-
 
 ; pip install jedi flake8 importmagic autopep8 yapf
 (elpy-enable)
 
 ; markdown
 (autoload 'markdown-mode "markdown-mode" "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))                                                                        
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-; jekyll
-(add-to-list 'auto-mode-alist '("\\.md$" . jekyll-markdown-mode))
-;(add-to-list 'auto-mode-alist '("\\.html" . jekyll-html-mode))
-
-
-; yaml-mode
+; yaml
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 
 ; py-yapf, used to format python code
-(require 'py-yapf)
-(add-hook 'python-mode-hook 'py-yapf-enable-on-save)
+;(require 'py-yapf)
+;(add-hook 'python-mode-hook 'py-yapf-enable-on-save)
 
 ; for mac
 (setenv "LC_ALL" "en_US.UTF-8")
