@@ -31,6 +31,8 @@
              puppet-mode
              flymake
              flyspell
+             neotree
+             fill-column-indicator
              ))
 
 (dolist (package package-list)
@@ -51,6 +53,13 @@
 ; show whitespace
 (require 'whitespace)
 ;(global-whitespace-mode 1)
+
+; 80 column
+(require 'fill-column-indicator)
+(setq fci-rule-column 80)
+(setq fci-rule-color "darkblue")
+(add-hook 'after-change-major-mode-hook 'fci-mode)
+
 
 (global-set-key (kbd "<C-up>") 'shrink-window)
 (global-set-key (kbd "<C-down>") 'enlarge-window)
@@ -103,3 +112,19 @@
 ; for mac
 (setenv "LC_ALL" "en_US.UTF-8")
 (setenv "LANG" "en_US.UTF-8")
+
+; flyspell
+(autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
+
+; ido
+(require 'ido)
+(ido-mode t)
+
+; neotree
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+(setq neo-smart-open t)
+(setq projectile-switch-project-action 'neotree-projectile-action)
+(setq neo-window-fixed-size nil)
+
