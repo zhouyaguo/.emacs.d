@@ -33,6 +33,8 @@
              flyspell
              neotree
              fill-column-indicator
+	     ansible
+	     auto-complete
              ))
 
 (dolist (package package-list)
@@ -127,4 +129,16 @@
 (setq neo-smart-open t)
 (setq projectile-switch-project-action 'neotree-projectile-action)
 (setq neo-window-fixed-size nil)
+
+; auto-complete
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/elpa/ansible-20170926.1951/dict")
+(ac-config-default)
+(global-auto-complete-mode t)
+(add-to-list 'ac-modes 'ansible)
+
+; ansible
+(require 'ansible)
+(add-hook 'yaml-mode-hook '(lambda () (ansible 1)))
+(add-hook 'yaml-mode-hook 'auto-complete-mode)
 
