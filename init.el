@@ -35,6 +35,8 @@
              fill-column-indicator
 	     ansible
 	     auto-complete
+             virtualenvwrapper
+             jinja2-mode
              ))
 
 (dolist (package package-list)
@@ -42,6 +44,8 @@
     (package-install package)))
 
 ; ------------------------------ common config
+
+(global-set-key (kbd "C-S-K") 'kill-whole-line)
 
 (menu-bar-mode 0)
 
@@ -97,6 +101,20 @@
 
 ; pip install jedi flake8 importmagic autopep8 yapf
 (elpy-enable)
+(setq elpy-rpc-python-command "python2")
+(setq elpy-rpc-timeout nil)
+(pyvenv-workon "kolla-env")
+
+; virtualenvwrapper
+;(require 'virtualenvwrapper)
+;(venv-initialize-interactive-shells)
+;(venv-initialize-eshell)
+;(setq venv-location '("/home/zyg/myvenv/" ))
+;(venv-workon "myvenv")
+
+; jinja2-mode
+(require 'jinja2-mode)
+(add-to-list 'auto-mode-alist '("\\.j2\\'" . jinja2-mode))
 
 ; markdown
 (autoload 'markdown-mode "markdown-mode" "Major mode for editing Markdown files" t)
@@ -122,6 +140,9 @@
 (require 'ido)
 (ido-mode t)
 
+; enable line wrapped
+(setq-default truncate-lines t)
+
 ; neotree
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
@@ -142,3 +163,5 @@
 (add-hook 'yaml-mode-hook '(lambda () (ansible 1)))
 (add-hook 'yaml-mode-hook 'auto-complete-mode)
 
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
