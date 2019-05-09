@@ -24,6 +24,7 @@
              yasnippet-snippets
              elpy
              zenburn-theme
+             spacemacs-theme
              color-theme-sanityinc-tomorrow
              markdown-mode
              company
@@ -33,8 +34,8 @@
              flyspell
              neotree
              fill-column-indicator
-	     ansible
-	     auto-complete
+             ansible
+             auto-complete
              virtualenvwrapper
              jinja2-mode
              ))
@@ -51,8 +52,10 @@
 
 ; theme
 ;(load-theme 'zenburn t)
-(require 'color-theme-sanityinc-tomorrow)
-(color-theme-sanityinc-tomorrow--define-theme night)
+;(require 'color-theme-sanityinc-tomorrow)
+;(color-theme-sanityinc-tomorrow--define-theme blue)
+(load-theme 'spacemacs-dark t)
+;(load-theme 'spacemacs-light t)
 
 (setq backup-directory-alist '(("." . "~/.emacs.backups")))
 
@@ -162,6 +165,9 @@
 (require 'ansible)
 (add-hook 'yaml-mode-hook '(lambda () (ansible 1)))
 (add-hook 'yaml-mode-hook 'auto-complete-mode)
+
+; enable cedet for c ide --TODO
+
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
