@@ -46,6 +46,8 @@
 
 ; ------------------------------ common config
 
+(global-visual-line-mode t)
+
 (global-set-key (kbd "C-S-K") 'kill-whole-line)
 
 (menu-bar-mode 0)
@@ -68,7 +70,6 @@
 (setq fci-rule-column 80)
 (setq fci-rule-color "darkblue")
 (add-hook 'after-change-major-mode-hook 'fci-mode)
-
 
 (global-set-key (kbd "<C-up>") 'shrink-window)
 (global-set-key (kbd "<C-down>") 'enlarge-window)
@@ -142,9 +143,6 @@
 ; ido
 (require 'ido)
 (ido-mode t)
-
-; enable line wrapped
-(setq-default truncate-lines t)
 
 ; neotree
 (require 'neotree)
